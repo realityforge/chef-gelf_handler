@@ -1,4 +1,10 @@
-*.gem
-.bundle
-Gemfile.lock
-pkg/*
+# Ignore IDEA project files
+/*.iml
+/*.ipr
+/*.iws
+
+# Ignore the generated json file
+/metadata.json
+
+# Ignore the patch file generated when integrating changes
+/patch.*
