@@ -23,18 +23,23 @@ class Chef
 
       def report
         Chef::Log.debug "Reporting #{run_status.inspect}"
-        if run_status.failed?
-          Chef::Log.debug "Notifying GELF server of failure."
-          @notifier.notify!(:short_message => "Chef run failed on #{node.name}. Updated #{changes[:count]} resources.",
-                            :full_message => run_status.formatted_exception + "\n" + Array(backtrace).join("\n") + changes[:message],
-                            :level => ::GELF::Levels::FATAL,
-                            :host => options[:report_host])
-        else
-          Chef::Log.debug "Notifying GELF server of success."
-          @notifier.notify!(:short_message => "Chef run completed on #{node.name} in #{elapsed_time}. Updated #{changes[:count]} resources.",
-                            :full_message => changes[:message],
-                            :level => ::GELF::Levels::INFO,
-                            :host => options[:report_host])
+        begin
+          if run_status.failed?
+            Chef::Log.debug "Notifying GELF server of failure."
+            @notifier.notify!(:short_message => "Chef run failed on #{node.name}. Updated #{changes[:count]} resources.",
+                              :full_message => run_status.formatted_exception + "\n" + Array(backtrace).join("\n") + changes[:message],
+                              :level => ::GELF::Levels::FATAL,
+                              :host => options[:report_host])
+          else
+            Chef::Log.debug "Notifying GELF server of success."
+            @notifier.notify!(:short_message => "Chef run completed on #{node.name} in #{elapsed_time}. Updated #{changes[:count]} resources.",
+                              :full_message => changes[:message],
+                              :level => ::GELF::Levels::INFO,
+                              :host => options[:report_host])
+          end
+        rescue Exception => e
+          # Capture any exceptions that happen as a result of transmission. i.e. Host address resolution errors.
+          Chef::Log.error("Error reporting to gelf server", e)
         end
       end
 
