@@ -1,3 +1,7 @@
+## v1.0.4:
+
+* Improve the way errors are logged when error occurs during reporting.
+
 ## v1.0.2:
 
 * Gracefully handle errors during gelf message transmission and print an error. Can happen as a result of DNS errors.
