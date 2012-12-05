@@ -39,7 +39,7 @@ class Chef
           end
         rescue Exception => e
           # Capture any exceptions that happen as a result of transmission. i.e. Host address resolution errors.
-          Chef::Log.error("Error reporting to gelf server: " + e)
+          Chef::Log.error("Error reporting to gelf server: #{e}")
         end
       end
 
