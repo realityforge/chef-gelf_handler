@@ -1,3 +1,5 @@
+## v1.0.6:
+
 ## v1.0.4:
 
 * Improve the way errors are logged when error occurs during reporting.
