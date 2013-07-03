@@ -1,5 +1,7 @@
 ## v1.0.6:
 
+* Enhance : Do not specify unix permissions on a windows host.
+
 ## v1.0.4:
 
 * Improve the way errors are logged when error occurs during reporting.

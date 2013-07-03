@@ -21,7 +21,9 @@ if node['chef_client']['handler']['gelf']['host']
 
   cookbook_file "#{Chef::Config[:file_cache_path]}/chef_gelf_handler.rb" do
     source 'chef_gelf_handler.rb'
-    mode '0600'
+    if node['platform'] != 'windows'
+      mode '0600'
+    end
   end
 
   chef_handler 'Chef::GELF::Handler' do
