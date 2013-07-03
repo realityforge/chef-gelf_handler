@@ -1,3 +1,5 @@
+## v1.0.8:
+
 ## v1.0.6:
 
 * Enhance : Do not specify unix permissions on a windows host.
